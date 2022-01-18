@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Collections.Generic; 
+using System.Collections.Generic;
+using System.Linq;
 
 namespace VS_CODE_DAY1
 {
@@ -11,7 +12,7 @@ namespace VS_CODE_DAY1
             {
                 FirstName = "Phuong",
                 LastName = "Nguyen Nam",
-                Gender = "Male",
+                Gender = "Female",
                 DateOfBirth = new DateTime(2001, 1, 22),
                 PhoneNumber = "",
                 BirthPlace = "Phu Tho",
@@ -82,27 +83,34 @@ namespace VS_CODE_DAY1
         static void Main(string[] args)
         {
             // 1.return a list of members who is male
-            //var maleMembers = GetMaleMembers();
-            //Printdata (maleMembers);
+            // var maleMembers = GetMaleMembers();
+            // Printdata (maleMembers);
             // 2.Find oldest member
-            //var oldest = GetOldestMember();
-            //Printdata(new List<Member> {oldest});
+            // var oldest = GetOldestMember();
+            // Printdata(new List<Member> {oldest});
             // 3.Member full name
-            //var fullnames = GetFullNames();
-            //foreach(var fullname in fullnames)
-            //{
+            // var fullnames = GetFullNames();
+            // foreach(var fullname in fullnames)
+            // {
             //    Console.WriteLine(fullname);
-            //}
+            // }
             // 4.Split member by year
-            //var results = SplitMembersByBirthYear();
-           //Printdata(results.Item1); 
-            //Console.WriteLine("-----------------------");
-            //Printdata(results.Item2);  
-            //Console.WriteLine("-----------------------");
-           // Printdata(results.Item3);  
+            // var results = SplitMembersByBirthYear(2000);
+            // Printdata(results.Item1); 
+            // Console.WriteLine("-----------------------");
+            // Printdata(results.Item2);  
+            // Console.WriteLine("-----------------------");
+            // Printdata(results.Item3);  
            //5. Get HaNoi base
-            var hanoiMembers = GetHaNoiMembers();
-            Printdata (hanoiMembers);
+            var result = GetFirstMemberByBirthPlace("Ha Noi");
+            if (result != null)
+            {
+                Printdata(new List<Member> {result});                
+            } else
+            {
+                Console.WriteLine("No data.");
+            }
+            
         }
         static void Printdata(List<Member> data)
         {
@@ -116,76 +124,48 @@ namespace VS_CODE_DAY1
         static List<Member> GetMaleMembers()
     
         {
-            var result = new List<Member>();
-            foreach (var member in members)
-            {
-                if (member.Gender == "Male")
-                {
-                    result.Add(member);
-                }
-            }
-            return result;
+            // var results = members.Where(x => x.Gender == "Male").ToList();
+            var results = from member in members
+                        where member.Gender == "Male"
+                        select member;
+            return results.ToList();
         }
         static Member GetOldestMember()
         {
-            var maxAge = members[0].Age;
-            var maxAgeIndex = 0;
-            for (var i=1;i<members.Count;i++)
-            {
-                var member = members[i];
-                if (member.Age > maxAge)
-                {
-                    maxAge = member.Age;
-                    maxAgeIndex = i;
-                }
-            }
-            return members[maxAgeIndex ];
+            var oderedList = from member in members
+                        orderby member.TotalDays descending // descending = DESC
+                        select member; 
+            return oderedList.First();
         }
         static List<string> GetFullNames()
         {
-            var result = new List<string>();
-            foreach (var member in members)
-            {
-                result.Add($"{member.LastName} {member.FirstName}");
-            }
-            return result;
+        //    var fullNames = members.Select(m => m.FullName);
+        //     return fullNames.ToList();
+            var fullNames = from member in members
+                            select member.FullName;
+            return fullNames.ToList();
         }
-        static Tuple<List<Member>, List<Member>,List<Member>> SplitMembersByBirthYear()
+        static Tuple<List<Member>, List<Member>,List<Member>> SplitMembersByBirthYear(int year)
         {
-            var list1 = new List<Member>();
-            var list2 = new List<Member>();
-            var list3 = new List<Member>();
-            foreach (var member in members)
-            {
-                var Birthyear = member.DateOfBirth.Year;
-                switch (Birthyear)
-                {
-                    case 2000: 
-                        list1.Add(member);
-                        break;
-                    case <2000:
-                        list2.Add(member);
-                        break;
-                    case >2000:
-                        list3.Add(member);
-                        break;
-
-                }
-            }
-            return Tuple.Create(list1,list2,list3);
+            var list1 = (from member in members 
+                        where member.DateOfBirth.Year == year
+                        select member ).ToList();
+            var list2 = (from member in members 
+                        where member.DateOfBirth.Year > year
+                        select member ).ToList();
+            var list3 = (from member in members 
+                        where member.DateOfBirth.Year < year
+                        select member ).ToList();
+            
+            return Tuple.Create(list3,list1,list2);
         }
-        static List<Member> GetHaNoiMembers()
+        static Member? GetFirstMemberByBirthPlace(string place)
     
         {
-            var result = new List<Member>();
-            foreach (var member in members)
-            {
-                if (member.BirthPlace == "Ha Noi")
-                {
-                    result.Add(member);
-                }
-            }
-            return result;
+            var results = from member in members
+                          where member.BirthPlace.Equals(place, StringComparison.CurrentCultureIgnoreCase)
+                          select member;
+            return results.FirstOrDefault();
         }
     }
 }

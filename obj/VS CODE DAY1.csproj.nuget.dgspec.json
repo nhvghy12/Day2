@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\thực tập\\Day1-ChuaLamGiCa-main\\Day1-ChuaLamGiCa-main\\VS CODE DAY1.csproj": {}
+    "D:\\thực tập\\C#\\D2\\Day2\\VS CODE DAY1.csproj": {}
   },
   "projects": {
-    "D:\\thực tập\\Day1-ChuaLamGiCa-main\\Day1-ChuaLamGiCa-main\\VS CODE DAY1.csproj": {
+    "D:\\thực tập\\C#\\D2\\Day2\\VS CODE DAY1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\thực tập\\Day1-ChuaLamGiCa-main\\Day1-ChuaLamGiCa-main\\VS CODE DAY1.csproj",
+        "projectUniqueName": "D:\\thực tập\\C#\\D2\\Day2\\VS CODE DAY1.csproj",
         "projectName": "VS CODE DAY1",
-        "projectPath": "D:\\thực tập\\Day1-ChuaLamGiCa-main\\Day1-ChuaLamGiCa-main\\VS CODE DAY1.csproj",
+        "projectPath": "D:\\thực tập\\C#\\D2\\Day2\\VS CODE DAY1.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\thực tập\\Day1-ChuaLamGiCa-main\\Day1-ChuaLamGiCa-main\\obj\\",
+        "outputPath": "D:\\thực tập\\C#\\D2\\Day2\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config"

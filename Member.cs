@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace VS_CODE_DAY1
 {
-    public class Member 
+    public class Member : IComparable
     {
         public string FirstName {get;set;}
         public string LastName {get;set;}
@@ -29,6 +29,17 @@ namespace VS_CODE_DAY1
             }
         }
 
-     
+        public int CompareTo(object? obj)
+        {
+            return TotalDays.CompareTo(((Member)obj).TotalDays);
+        }
+        
+        public string FullName
+        {
+            get
+            {
+                return $"{LastName} {FirstName}";
+            }
+        }
     }
 }
